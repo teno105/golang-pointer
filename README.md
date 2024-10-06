@@ -270,7 +270,7 @@ type Data struct {
 func TestFunc() {
     u := &Data{}    // u 포인터 변수를 선언하고 인스턴스를 생성합니다.
     u.value = 30
-    fmt.Println(u)
+    mt.Println("u: ", &u)
 }   // 내부 변수 u는 사라집니다. 더불어 인스턴스도 사라집니다.
 
 func main() {
