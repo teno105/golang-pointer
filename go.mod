@@ -1,3 +1,3 @@
-module golang-struct
+module golang-pointer
 
 go 1.23.2

@@ -8,25 +8,18 @@ type Data struct {
     data [200]int
 }
 
+func TestFunc() {
+    u := &Data{}    // u 포인터 변수를 선언하고 인스턴스를 생성합니다.
+    u.value = 30
+    fmt.Println(u)
+}   // 내부 변수 u는 사라집니다. 더불어 인스턴스도 사라집니다.
+
 func main() {
-    var data Data
-    var p *Data = &data
-
-    fmt.Printf("p의 값: %p\n", p)
-
-    var p1 *Data = &Data{}
-    var p2 *Data = p1
-    var p3 *Data = p1
+    p1 := &Data{}        // &를 사용하는 초기화
+    var p2 = new(Data)  // new()를 사용하는 초기화
 
     fmt.Printf("p1의 값: %p\n", p1)
     fmt.Printf("p2의 값: %p\n", p2)
-    fmt.Printf("p3의 값: %p\n", p3)
 
-    var data1 Data
-    var data2 Data = data1
-    var data3 Data = data1
-
-    fmt.Printf("data1의 값: %p\n", data1)
-    fmt.Printf("data2의 값: %p\n", data2)
-    fmt.Printf("data3의 값: %p\n", data3)
+    TestFunc()
 }
