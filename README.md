@@ -239,9 +239,9 @@ func main() {
     var data2 Data = data1  // data1과 값만 같고, 인스턴스가 생성됩니다.
     var data3 Data = data1  // data1과 값만 같고, 인스턴스가 생성됩니다.
 
-    fmt.Printf("data1의 값: %p\n", data1)
-    fmt.Printf("data2의 값: %p\n", data2)
-    fmt.Printf("data3의 값: %p\n", data3)
+    fmt.Printf("data1의 값: %p\n", &data1)
+    fmt.Printf("data2의 값: %p\n", &data2)
+    fmt.Printf("data3의 값: %p\n", &data3)
 }
 ```
 
