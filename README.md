@@ -132,11 +132,27 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello World")
+    var a int = 50
+    var b int = 20
+
+    var p1 *int = &a
+    var p2 *int = &a
+    var p3 *int = &b
+
+    fmt.Printf("p1 == p2 : %v\n", p1 == p2)
+    fmt.Printf("p2 == p3 : %v\n", p2 == p3)
+
+    var p *int
+    
+    if p != nil {
+        fmt.Printf("p의 값: %p\n", p)
+    } else {
+        fmt.Println("p 는 nil입니다")
+    }
 }
 ```
 
-이제 `make run` 명령을 사용하면 각 house의 정보가 출력됩니다.
+이제 `make run` 명령을 사용하면 각 조건의 결과가 출력됩니다.
 
 ```bash
 make run
