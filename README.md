@@ -38,7 +38,7 @@ mkdir -p cmd/golang-pointer
 ### 2. 포인터 변수 선언
 
 `cmd/golang-pointer/` 디렉터리 아래에 `main.go` 파일을 생성하고,
-struct 를 선언 및 활용하는 코드를 작성합니다.
+포인터 정의 및 활용하는 코드를 작성합니다.
 
 ```go
 // cmd/golang-pointer/main.go
@@ -47,11 +47,20 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello World")
+    var a int = 500
+    var p *int
+
+    p = &a
+
+    fmt.Printf("p의 값: %p\n", p)   // 메모리 주솟값 출력
+    fmt.Printf("p가 가리키는 메모리의 값: %d\n", *p) // p가 가리키는 메모리의 값 출력
+
+    *p = 100
+    fmt.Printf("a의 값: %d\n", a)   // a의 값 변화 확인
 }
 ```
 
-이 코드를 통해 프로그램을 실행하면 구조체의 정보가 출력됩니다.
+이 코드를 통해 프로그램을 실행하면 포인터의 값이 출력됩니다.
 
 ### 3. `Makefile` 작성
 
