@@ -123,7 +123,7 @@ make run
 
 ### 4. 포인터 변숫값 비교하기
 
-구조체 변수를 초기화 하는 방법에 대해 알아보겠습니다.
+포인터의 값을 비교하는 방법에 대해 알아보겠습니다.
 
 ```go
 // cmd/golang-pointer/main.go
@@ -159,6 +159,60 @@ make run
 ```
 
 ### 5. 포인터의 사용이유
+
+변수 대입이나 함수 인수 전달은 항상 값을 복사하기 때문에 많은 메모리 공간을 사용하는 문제와
+큰 메모리 공간을 복사할 때 발생하는 성능 문제를 안고 있습니다.
+또한 다른 공간으로 복사되기 때문에 변경 사항이 적용되지도 않습니다.
+
+```go
+// cmd/golang-pointer/main.go
+package main
+
+import "fmt"
+
+type Data struct {
+    value int
+    data [200]int
+}
+
+func ChangeData(arg Data) {
+    arg.value = 99
+    arg.data[100] = 999
+}
+
+func ChangeData2(arg *Data) {
+    // arg는 포인터 변수이기 때문에 (*arg).value = 999라고 써야 하지만
+    // Go 언어에서는 arg.value 라고만 써도 동작합니다.
+    arg.value = 999
+    arg.data[100] = 999
+}
+
+func main() {
+    var data Data
+
+    ChangeData(data)    // 인수로 data를 넣습니다.
+    fmt.Printf("value = %d\n", data.value)
+    fmt.Printf("data[100] = %d\n", data.data[100])
+
+    ChangeData2(&data)  // 인수로 data의 주소를 넘깁니다.
+    fmt.Printf("value = %d\n", data.value)
+    fmt.Printf("data[100] = %d\n", data.data[100])
+}
+```
+
+이제 `make run` 명령을 사용하면 data의 값이 출력됩니다.
+
+```bash
+make run
+```
+
+
+
+
+
+
+
+
 
 
 ### 6. 인스턴스

@@ -3,22 +3,31 @@ package main
 
 import "fmt"
 
+type Data struct {
+    value int
+    data [200]int
+}
+
+func ChangeData(arg Data) {
+    arg.value = 99
+    arg.data[100] = 999
+}
+
+func ChangeData2(arg *Data) {
+    // arg는 포인터 변수이기 때문에 (*arg).value = 999라고 써야 하지만
+    // Go 언어에서는 arg.value 라고만 써도 동작합니다.
+    arg.value = 999
+    arg.data[100] = 999
+}
+
 func main() {
-    var a int = 50
-    var b int = 20
+    var data Data
 
-    var p1 *int = &a
-    var p2 *int = &a
-    var p3 *int = &b
+    ChangeData(data)    // 인수로 data를 넣습니다.
+    fmt.Printf("value = %d\n", data.value)
+    fmt.Printf("data[100] = %d\n", data.data[100])
 
-    fmt.Printf("p1 == p2 : %v\n", p1 == p2)
-    fmt.Printf("p2 == p3 : %v\n", p2 == p3)
-
-    var p *int
-    
-    if p != nil {
-        fmt.Printf("p의 값: %p\n", p)
-    } else {
-        fmt.Println("p 는 nil입니다")
-    }
+    ChangeData2(&data)  // 인수로 data의 주소를 넘깁니다.
+    fmt.Printf("value = %d\n", data.value)
+    fmt.Printf("data[100] = %d\n", data.data[100])
 }
