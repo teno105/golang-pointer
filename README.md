@@ -206,16 +206,54 @@ func main() {
 make run
 ```
 
-
-
-
-
-
-
-
-
-
 ### 6. 인스턴스
+
+인스턴스란 메모리에 할당된 데이터의 실체를 말합니다.
+
+```go
+// cmd/golang-pointer/main.go
+package main
+
+import "fmt"
+
+type Data struct {
+    value int
+    data [200]int
+}
+
+func main() {
+    var data Data
+    var p *Data = &data // 기존에 있는 data 인스턴스를 가리킵니다.
+
+    fmt.Printf("p의 값: %p\n", p)
+
+    var p1 *Data = &Data{}  // Data 인스턴스를 생성합니다.
+    var p2 *Data = p1       // 인스턴스를 가리킵니다.
+    var p3 *Data = p1       // 인스턴스를 가리킵니다.
+
+    fmt.Printf("p1의 값: %p\n", p1)
+    fmt.Printf("p2의 값: %p\n", p2)
+    fmt.Printf("p3의 값: %p\n", p3)
+
+    var data1 Data
+    var data2 Data = data1  // data1과 값만 같고, 인스턴스가 생성됩니다.
+    var data3 Data = data1  // data1과 값만 같고, 인스턴스가 생성됩니다.
+
+    fmt.Printf("data1의 값: %p\n", data1)
+    fmt.Printf("data2의 값: %p\n", data2)
+    fmt.Printf("data3의 값: %p\n", data3)
+}
+```
+
+이제 `make run` 명령을 사용하면 pointer의 인스턴스를 확인할 수 있습니다.
+
+```bash
+make run
+```
+
+
+
+
 
 
 ### 7. new() 내장함수

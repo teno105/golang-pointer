@@ -8,26 +8,25 @@ type Data struct {
     data [200]int
 }
 
-func ChangeData(arg Data) {
-    arg.value = 99
-    arg.data[100] = 999
-}
-
-func ChangeData2(arg *Data) {
-    // arg는 포인터 변수이기 때문에 (*arg).value = 999라고 써야 하지만
-    // Go 언어에서는 arg.value 라고만 써도 동작합니다.
-    arg.value = 999
-    arg.data[100] = 999
-}
-
 func main() {
     var data Data
+    var p *Data = &data
 
-    ChangeData(data)    // 인수로 data를 넣습니다.
-    fmt.Printf("value = %d\n", data.value)
-    fmt.Printf("data[100] = %d\n", data.data[100])
+    fmt.Printf("p의 값: %p\n", p)
 
-    ChangeData2(&data)  // 인수로 data의 주소를 넘깁니다.
-    fmt.Printf("value = %d\n", data.value)
-    fmt.Printf("data[100] = %d\n", data.data[100])
+    var p1 *Data = &Data{}
+    var p2 *Data = p1
+    var p3 *Data = p1
+
+    fmt.Printf("p1의 값: %p\n", p1)
+    fmt.Printf("p2의 값: %p\n", p2)
+    fmt.Printf("p3의 값: %p\n", p3)
+
+    var data1 Data
+    var data2 Data = data1
+    var data3 Data = data1
+
+    fmt.Printf("data1의 값: %p\n", data1)
+    fmt.Printf("data2의 값: %p\n", data2)
+    fmt.Printf("data3의 값: %p\n", data3)
 }
