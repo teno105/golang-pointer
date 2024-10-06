@@ -290,6 +290,41 @@ func main() {
 make run
 ```
 
-
 ### 8. 스택 메모리와 힙 메모리
 
+이론상 스택 메모리 영역이 힙 메모리 영역보다 훨씬 효율적이기 때문에 스택 메모리 영역에 메모리를 할당하는 게 더 좋지만, 스택 메모리는 함수 내부에서만 사용 가능한 영역입니다. 그래서 함수 외부로 공개되는 메모리 공간은 힙 메모리 영역에서 할당합니다.
+
+Go 언어는 탈출 검사(escape analysis)를 해서 어느 메모리에 할당할지 결정합니다.
+
+```go
+// cmd/golang-pointer/main.go
+package main
+
+import "fmt"
+
+type User struct {
+    Name    string
+    Age int
+}
+
+func NewUser(name string, age int) *User{
+    var u = User{name, age}
+    fmt.Printf("u의 주소값: %p\n", u)
+    return &u   // 탈출 분석으로 u 메모리가 사라지지 않음
+}
+
+func main() {
+    userPointer := NewUser("AAA", 23)
+
+    fmt.Println(userPointer)
+    fmt.Printf("userPointer의 주소값: %p\n", userPointer)
+}
+```
+
+이제 `make run` 명령을 사용하면 User의 메모리 값을 확인할 수 있습니다.
+
+```bash
+make run
+```
+
+Go 언어에서는 탈출 검사를 통해서 u 변수의 인스턴스가 함수 외부로 공개되는 것을 분석해내서 u를 스택 메모리가 아닌 힙 메모리에서 할당하게 됩니다. 메모리 공간이 함수 외부로 공개되는지 여부를 자동으로 검사해서 스택 메모리에 할당할지 힙 메모리에 할당할지 결정합니다.
